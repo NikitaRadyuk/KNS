@@ -51,8 +51,4 @@ public class Point {
                 '}';
     }
 
-    /*public org.kabeja.dxf.helpers.Point convert(){
-        org.kabeja.dxf.helpers.Point p = new org.kabeja.dxf.helpers.Point(x,y,0);
-        return p;
-    }*/
 }

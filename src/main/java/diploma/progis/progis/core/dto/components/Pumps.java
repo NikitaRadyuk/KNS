@@ -16,7 +16,6 @@ public class Pumps implements IComponent {
     public Double diamPump;
     public Double diamPressureLine;
     public Integer anglePressure1;
-    public Double anglePressure2;
 
     private List<IShape> drawPump(){
         List<IShape> pump = new ArrayList<>();
@@ -45,7 +44,7 @@ public class Pumps implements IComponent {
 
         points.add(new Point(diamPipeBranch/2, wellToPumpAxes + diamPump/2));                                                                                                              //16
 
-        Double angTangent = Math.PI/2 - Math.atan((points.get(13).x - diamPipeBranch /2)/(wellToPumpAxes + pressureToPumpAxes - diamPump/15 - diamPump/7.5 - diamPump/7.5 - diamPump/7.5))
+        double angTangent = Math.PI/2 - Math.atan((points.get(13).x - diamPipeBranch /2)/(wellToPumpAxes + pressureToPumpAxes - diamPump/15 - diamPump/7.5 - diamPump/7.5 - diamPump/7.5))
                             - Math.acos((diamPump/2)/(Math.sqrt(Math.pow(points.get(13).x - diamPipeBranch /2,2)
                             + Math.pow((wellToPumpAxes + pressureToPumpAxes - 20 - 40 - 40 - 40),2))));
 

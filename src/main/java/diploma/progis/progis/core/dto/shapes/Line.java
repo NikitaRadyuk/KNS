@@ -54,14 +54,6 @@ public class Line implements IShape {
                 '}';
     }
 
-   /* @Override
-    public void drawToDXF(DXFDocument dxfDocument) {
-        DXFLine line = new DXFLine();
-        line.setStartPoint(point1.convert());
-        line.setEndPoint(point2.convert());
-        dxfDocument.addDXFEntity(line);
-    }*/
-
     @Override
     public void drawToSVG(SVGBuilder svgBuilder) {
 
@@ -69,8 +61,8 @@ public class Line implements IShape {
                 + "\" y1=\"" + point1.y * svgBuilder.scale + "\"" +
                 " x2=\"" + point2.x * svgBuilder.scale
                 + "\" y2=\"" + point2.y * svgBuilder.scale+ "\" " +
-                "stroke-width=\"2\" vector-effect=\"non-scaling-stroke\" " +
-                "stroke=\"#b38600\"></line>";
+                "stroke-width=\"3\" vector-effect=\"non-scaling-stroke\" " +
+                "stroke=\"#000000\"></line>";
         svgBuilder.append(line);
     }
 }

@@ -12,9 +12,17 @@ public class AnswerDTO {
     @JsonProperty("svg")
     private String svg;
     @JsonProperty("waterConsumption")
-    private Double waterConsumption;
+    private String waterConsumption;
     @JsonProperty("localResistanceLosses")
-    private Double localResistanceLosses;
+    private String localResistanceLosses;
     @JsonProperty("weight")
-    private Double weight;
+    private String weight;
+    @JsonProperty("diameter")
+    private String diameter;
+    @JsonProperty("turningLosses")
+    private String turningLosses;
+    @JsonProperty("expansionLosses")
+    private Double expansionLosses;
+    @JsonProperty("narrowingLosses")
+    private Double narrowingLosses;
 }

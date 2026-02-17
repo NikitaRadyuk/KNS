@@ -73,8 +73,8 @@ public class DrawingImpl implements IDrawingService{
         exit1.wellToPumpAxes = createDrawingDTO.getWellToPumpAxes();
         exit1.pressureToPumpAxes = createDrawingDTO.getPressureToPumpAxes();
         exit1.diamPressureLine = createDrawingDTO.getDiamPressureLines();
-        exit1.anglePressure1 = createDrawingDTO.getAnglePressure1();
-        exit1.pump1Visibility = createDrawingDTO.getPressure1visibility();
+        exit1.anglePressure1 = - createDrawingDTO.getAnglePressure1();
+        exit1.pumpVisibility = createDrawingDTO.getPressure1visibility();
 
         Exits exit2 = new Exits();
         exit2.diamPipeBranch = - createDrawingDTO.getDiamPipeBranch();
@@ -82,13 +82,15 @@ public class DrawingImpl implements IDrawingService{
         exit2.pressureToPumpAxes = createDrawingDTO.getPressureToPumpAxes();
         exit2.diamPressureLine = createDrawingDTO.getDiamPressureLines();
         exit2.anglePressure1 = createDrawingDTO.getAnglePressure1();
-        exit2.pump1Visibility = createDrawingDTO.getPressure2visibility();
+        exit2.pumpVisibility = createDrawingDTO.getPressure2visibility();
 
         List<IShape> shapes = influx2.draw();
         shapes.addAll(influx1.draw());
         shapes.addAll(pumps.draw());
         shapes.addAll(pumps1.draw());
         shapes.addAll(frontView.draw());
+        shapes.addAll(exit1.draw());
+        shapes.addAll(exit2.draw());
 
         SVGBuilder svgBuilder = new SVGBuilder(1000,2500,8000.0,8000.0, new Point(1700,1200));
         for(
@@ -105,8 +107,12 @@ public class DrawingImpl implements IDrawingService{
         CalculateParams calc = new CalculateParams();
         answerDTO.setWeight(calc.calcWeight(drawingDTO));
         answerDTO.setSvg(drawStation(drawingDTO));
-        answerDTO.setLocalResistanceLosses(calc.calcLocalResistanceLosses());
+        answerDTO.setLocalResistanceLosses(calc.calcLocalResistanceLosses(drawingDTO));
         answerDTO.setWaterConsumption(calc.calculateWaterConsumption(drawingDTO));
+        answerDTO.setDiameter(calc.calcDiam(drawingDTO));
+        answerDTO.setTurningLosses(calc.calcTurningLosses(drawingDTO));
+        answerDTO.setExpansionLosses(calc.calcExpansionLosses(drawingDTO));
+        answerDTO.setNarrowingLosses(calc.calcNarrowingLosses(drawingDTO));
         return answerDTO;
     }
 }

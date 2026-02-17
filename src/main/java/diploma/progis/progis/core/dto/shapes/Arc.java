@@ -75,18 +75,8 @@ public class Arc implements IShape {
                     + "," + radius * svgBuilder.scale
                     + " 0 0,0 " + endPoint.x * svgBuilder.scale
                     + ", " + endPoint.y * svgBuilder.scale
-                    + "\" fill=\"none\" stroke=\"#b38600\" " +
-                    "vector-effect=\"non-scaling-stroke\" stroke-width=\"2\"></path>";
+                    + "\" fill=\"none\" stroke=\"#000000\" " +
+                    "vector-effect=\"non-scaling-stroke\" stroke-width=\"3\"></path>";
         svgBuilder.append(arc);
     }
-
-    /*@Override
-    public void drawToDXF(DXFDocument dxfDocument) {
-        DXFArc arc = new DXFArc();
-        arc.setCenterPoint(pointCenter.convert());
-        arc.setRadius(radius);
-        arc.setStartAngle();
-        dxfDocument.addDXFEntity(arc);
-    }
-    */
 }

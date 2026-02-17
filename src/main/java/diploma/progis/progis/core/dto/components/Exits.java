@@ -14,7 +14,7 @@ public class Exits implements IComponent {
     public Double pressureToPumpAxes;
     public Double diamPressureLine;
     public Integer anglePressure1;
-    public Boolean pump1Visibility;
+    public Boolean pumpVisibility;
 
     private List<IShape> drawExitPumps(){
         List<IShape> exitPump = new ArrayList<>();
@@ -23,14 +23,17 @@ public class Exits implements IComponent {
         //выходные патрубки
         points.add(new Point(diamPipeBranch /2, wellToPumpAxes + pressureToPumpAxes));                                                                                           //1
         points.add(new Point(diamPipeBranch /2 + 1.5*diamPipeBranch, wellToPumpAxes + pressureToPumpAxes));                                                                        //2
-        points.add(new Point(diamPipeBranch /2 + 1.5*diamPipeBranch, wellToPumpAxes + pressureToPumpAxes + diamPressureLine));                                                     //3
+        points.add(new Point(diamPipeBranch /2 + 1.5*diamPipeBranch, wellToPumpAxes + pressureToPumpAxes
+                + diamPressureLine));                                                     //3
         points.add(new Point(diamPipeBranch /2, wellToPumpAxes + pressureToPumpAxes + diamPressureLine));                                                                        //4
 
         for (var p: points){
             Double x = p.x - diamPipeBranch/2;
             Double y = p.y - wellToPumpAxes - pressureToPumpAxes - diamPressureLine/2;
-            p.x = x*Math.cos(-anglePressure1 * Math.PI/180) - y*Math.sin(-anglePressure1 * Math.PI/180) + diamPipeBranch /2;
-            p.y = x*Math.sin(-anglePressure1 * Math.PI/180) + y*Math.cos(-anglePressure1 * Math.PI/180) + wellToPumpAxes + pressureToPumpAxes + diamPressureLine/2;
+            p.x = x*Math.cos(-anglePressure1 * Math.PI/180) - y*Math.sin(-anglePressure1 * Math.PI/180) +
+                    diamPipeBranch /2;
+            p.y = x*Math.sin(-anglePressure1 * Math.PI/180) + y*Math.cos(-anglePressure1 * Math.PI/180) +
+                    wellToPumpAxes + pressureToPumpAxes + diamPressureLine/2;
         }
 
         exitPump.add(new Line(points.get(0),points.get(1)));
@@ -45,9 +48,10 @@ public class Exits implements IComponent {
     public List<IShape> draw() {
         List<IShape> exits = new ArrayList<>();
 
-        if (pump1Visibility) {
+        if (pumpVisibility) {
             exits.addAll(drawExitPumps());
         }
+
         return exits;
     }
 }

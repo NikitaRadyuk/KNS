@@ -57,4 +57,26 @@ public class CreateDrawingDTO {
     private Boolean pressure1visibility;
     @JsonProperty("pressure2visibility")
     private Boolean pressure2visibility;
+    @JsonProperty("outterDiamPipeline")
+    private Double outterDiamPipeline;
+    @JsonProperty("thicknessPipeline")
+    private Double thicknessPipeline;
+    @JsonProperty("fluidFlowRate")
+    private Double fluidFlowRate;
+    @JsonProperty("consumption")
+    private Double consumption;
+    @JsonProperty("pipeLength")
+    private Double pipeLength;
+    @JsonProperty("density")
+    private Double density;
+    @JsonProperty("eps")
+    private Double eps;
+    @JsonProperty("diamExpansion1")
+    private Double diamExpansion1;
+    @JsonProperty("diamExpansion2")
+    private Double diamExpansion2;
+    @JsonProperty("diamNarrowing1")
+    private Double diamNarrowing1;
+    @JsonProperty("diamNarrowing2")
+    private Double diamNarrowing2;
 }

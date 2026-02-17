@@ -55,21 +55,13 @@ public class Circle implements IShape {
                 '}';
     }
 
-    /*@Override
-    public void drawToDXF(DXFDocument dxfDocument) {
-        DXFCircle circle = new DXFCircle();
-        circle.setCenterPoint(centerPoint.convert());
-        circle.setRadius(radius);
-        dxfDocument.addDXFEntity(circle);
-    }*/
-
     @Override
     public void drawToSVG(SVGBuilder svgBuilder) {
         String circle = "<circle cx=\"" + centerPoint.x * svgBuilder.scale
                 + "\" cy=\"" + centerPoint.y * svgBuilder.scale
                 + "\" r=\"" + radius * svgBuilder.scale +
-                "\" fill=\"none\" stroke=\"#b38600\"" +
-                " vector-effect=\"non-scaling-stroke\" stroke-width=\"2\"></circle>";
+                "\" fill=\"none\" stroke=\"#000000\"" +
+                " vector-effect=\"non-scaling-stroke\" stroke-width=\"3\"></circle>";
         svgBuilder.append(circle);
     }
 }

@@ -2,32 +2,80 @@ package diploma.progis.progis.services;
 
 import diploma.progis.progis.core.dto.CreateDrawingDTO;
 
+import java.net.DatagramPacket;
+import java.text.DecimalFormat;
+
 public class CalculateParams {
-    private final Double v = 1.5;
-    private final Double eps = 0.5;
-    private final Double g = 9.81;
-    private final Double p = 7850.0;
+    DecimalFormat format = new DecimalFormat("0.0000");
 
     public CalculateParams() {
     }
 
-    public Double calculateWaterConsumption(CreateDrawingDTO drawingDTO){
-        Double d = drawingDTO.getDiamKNS();
-        Double t = drawingDTO.getDiamKNS()*0.05;
-        Double waterConsumption = Math.PI * (Math.pow(d - t, 2) / 4) * v;
-        return waterConsumption;
+    public String calculateWaterConsumption(CreateDrawingDTO drawingDTO){
+        Double d = drawingDTO.getOutterDiamPipeline();
+        Double t = drawingDTO.getThicknessPipeline();
+        Double v = drawingDTO.getFluidFlowRate();
+        Double result = Math.PI * (Math.pow(d - t, 2) / 4) * v;
+        String formRes = format.format(result);
+        return formRes;
     }
 
-    public Double calcLocalResistanceLosses(){
+    public String calcLocalResistanceLosses(CreateDrawingDTO drawingDTO){
+        Double v = drawingDTO.getFluidFlowRate();
+        double g = 9.81;
+        Double eps = 0.5;
         Double localResistanceLosses = eps * Math.pow(v, 2) / (2 * g);
-        return localResistanceLosses;
+        String formRes = format.format(localResistanceLosses);
+        return formRes;
     }
 
-    public Double calcWeight(CreateDrawingDTO drawingDTO){
+    public String calcWeight(CreateDrawingDTO drawingDTO){
         Double t = drawingDTO.getDiamKNS()*0.05;
         Double d = drawingDTO.getDiamKNS();
-        Double l = 1.0;
+        Double l = drawingDTO.getPipeLength();
+        Double p = drawingDTO.getDensity();
         Double weight = p * (t / 1000 * Math.PI * (d - t) / 1000 * l);
-        return weight;
+        String formRes = format.format(weight);
+        return formRes;
     }
+
+    public String calcDiam(CreateDrawingDTO drawingDTO){
+        Double q = drawingDTO.getConsumption();
+        Double v = drawingDTO.getFluidFlowRate();
+        Double diam = Math.sqrt(4*1000*q/v/Math.PI);
+        String formRes = format.format(diam);
+        return formRes;
+    }
+
+    public String calcTurningLosses(CreateDrawingDTO drawingDTO){
+        Double eps = drawingDTO.getEps();
+        Double v = drawingDTO.getFluidFlowRate();
+        Double g = 9.81;
+        Double turningLosses = eps*Math.pow(v,2)/(2*g);
+        String formRes = format.format(turningLosses);
+        return formRes;
+    }
+
+    public Double calcExpansionLosses(CreateDrawingDTO drawingDTO){
+        Double d1 = drawingDTO.getDiamExpansion1();
+        Double d2 = drawingDTO.getDiamExpansion2();
+        Double q = drawingDTO.getConsumption();
+        Double eps = Math.pow((1 - Math.pow(d1/d2,2)),2);
+        Double v = 4*q/(Math.PI * Math.pow(d2,2));
+        Double g = 9.81;
+        Double narrowingLosses = eps * Math.pow(v,2)/(2*g);
+        return narrowingLosses;
+    }
+
+    public Double calcNarrowingLosses(CreateDrawingDTO drawingDTO){
+        Double d1 = drawingDTO.getDiamNarrowing1();
+        Double d2 = drawingDTO.getDiamNarrowing2();
+        Double q = drawingDTO.getConsumption();
+        Double eps = 0.5*Math.pow((1 - Math.pow((d1/d2),2)),2);
+        Double v = 4*q/(Math.PI * Math.pow(d2,2));
+        Double g = 9.81;
+        Double narrowingLosses = eps * Math.pow(v,2)/(2*g);
+        return narrowingLosses;
+    }
+
 }
